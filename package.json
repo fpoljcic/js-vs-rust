@@ -20,5 +20,8 @@
   "homepage": "https://github.com/fpoljcic/rust-test-new#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "engines": {
+    "node": ">=10.5.0"
   }
 }
