@@ -15,7 +15,7 @@ extern "C" {
 
 #[wasm_bindgen]
 pub fn greet() {
-    alert("Hello, rust-test-new!");
+    alert("Hello, rust-helper!");
 }
 
 #[wasm_bindgen]
