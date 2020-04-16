@@ -9,7 +9,13 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+<<<<<<< HEAD
     "rust-helper": "0.1.0"
+=======
+    "@fpoljcic/rust-helper": "0.1.0",
+    "react-app-rewired": "^2.1.5",
+    "wasm-loader": "^1.3.0"
+>>>>>>> cdeb400d04d96cf5f6de2079d175cf9f9ed49255
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -32,8 +38,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "react-app-rewired": "^2.1.5",
-    "wasm-loader": "^1.3.0"
-  }
+  "devDependencies": {}
 }
