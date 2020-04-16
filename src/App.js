@@ -53,11 +53,7 @@ function App() {
   }
 
   const loadWasm = async () => {
-<<<<<<< HEAD
     const wasm = await import('rust-helper');
-=======
-    const wasm = await import('@fpoljcic/rust-helper');
->>>>>>> cdeb400d04d96cf5f6de2079d175cf9f9ed49255
     setWasm(wasm);
   };
 
