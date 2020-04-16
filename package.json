@@ -9,7 +9,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "rust-test-new": "file:./rust/pkg"
+    "rust-helper": "0.1.0"
   },
   "scripts": {
     "start": "react-app-rewired start",

@@ -53,7 +53,7 @@ function App() {
   }
 
   const loadWasm = async () => {
-    const wasm = await import('rust-test-new');
+    const wasm = await import('rust-helper');
     setWasm(wasm);
   };
 
