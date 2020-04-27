@@ -1,6 +1,11 @@
 mod utils;
 
+//extern crate serde_json;
+extern crate wasm_bindgen;
+extern crate js_sys;
+
 use wasm_bindgen::prelude::*;
+use js_sys::Array;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -29,4 +34,14 @@ fn fibon(num: u16) -> u32 {
     } else {
         fibon(num - 1) + fibon(num - 2)
     }
+}
+
+#[wasm_bindgen]
+pub fn words_test(words: &JsValue) -> Array {
+    let mut elements: Vec<String> = words.into_serde().unwrap();
+    
+    elements.sort_by(|a, b| b.cmp(&a));
+    elements.retain(|a| !a.contains("a") && !a.contains("e") && !a.contains("i") && !a.contains("o") && !a.contains("u") && a.len() > 6);
+
+    elements.into_iter().map(JsValue::from).collect()
 }

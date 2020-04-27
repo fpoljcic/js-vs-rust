@@ -14,3 +14,5 @@ heroku login
 heroku git:remote -a IME_PROJEKTA
 heroku buildpacks:add https://github.com/mars/create-react-app-buildpack.git
 git push heroku master
+Ako imamo folder backend u root-u i samo njega zelimo
+git subtree push --prefix backend heroku master

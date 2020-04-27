@@ -1,6 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 
+// Ucitavanje svih rijeci engleskog jezika
+var wordsJS = [];
+var wordsRust = [];
+function readTextFile(file) {
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", file, false);
+  rawFile.onreadystatechange = function () {
+    if (rawFile.readyState === 4) {
+      if (rawFile.status === 200 || rawFile.status === 0) {
+        wordsJS = rawFile.responseText.split("\r\n");
+        wordsRust = wordsJS
+        console.log("Finished reading data.");
+      }
+    }
+  }
+  rawFile.send(null);
+}
+readTextFile("./words_alpha.txt");
+
+// For u64 support add (global BigInt)
+// const [rustResult, setRustResult] = useState("");
+// let sum = BigInt(wasm.fibonacci(inputValue)).toString();
+
 function App() {
   const [jsTime, setJsTime] = useState(0);
   const [rustTime, setRustTime] = useState(0);
@@ -18,6 +41,7 @@ function App() {
     let time = end - start;
     setRustLoadTime(time);
   }, []);
+
 
   function runBenchmark() {
     let resultJS = [];
@@ -50,32 +74,54 @@ function App() {
     return fibonacci(num - 1) + fibonacci(num - 2);
   }
 
-  function runJS() {
+  function runJS(flag) {
     let start = performance.now();
+    let result = 0;
 
     // ------------------------ CODE START ------------------------
-    let sum = fibonacci(inputValue);
+    switch (flag) {
+      case 0:
+        result = fibonacci(inputValue);
+        break;
+      case 1:
+        wordsJS.sort((a, b) => b.localeCompare(a));
+        wordsJS = wordsJS.filter((word) => !word.includes("a") && !word.includes("e") && !word.includes("i") && !word.includes("o") && !word.includes("u") && word.length > 6);
+        console.log(wordsJS);
+        result = "Finished";
+        break;
+      default:
+        return;
+    }
     // ------------------------ CODE END ------------------------
 
     let end = performance.now();
-    setJsResult(sum);
+    setJsResult(result);
     let time = end - start;
     setJsTime(time);
   }
 
-  function runRust() {
-    // For u64 support add (global BigInt)
-    // const [rustResult, setRustResult] = useState("");
-    // let sum = BigInt(wasm.fibonacci(inputValue)).toString();
+  function runRust(flag) {
     setPressed(true);
     let start = performance.now();
+    let result = 0;
 
     // ------------------------ CODE START ------------------------
-    let sum = wasm.fibonacci(inputValue);
+    switch (flag) {
+      case 0:
+        result = wasm.fibonacci(inputValue);
+        break;
+      case 1:
+        wordsRust = wasm.words_test(wordsRust);
+        console.log(wordsRust);
+        result = "Finished";
+        break;
+      default:
+        return;
+    }
     // ------------------------ CODE END ------------------------
 
     let end = performance.now();
-    setRustResult(sum);
+    setRustResult(result);
     setPressed(false);
     let time = end - start;
     setRustTime(time);
@@ -95,17 +141,23 @@ function App() {
       <h1 style={{ marginTop: '40px' }}>
         {jsTime} ms ({jsResult})
       </h1>
-      <button onClick={runJS} >
-        Run JS code
+      <button onClick={() => runJS(0)} >
+        Run JS code (fibonacci)
+      </button>
+      <button onClick={() => runJS(1)} >
+        Run JS code (words)
       </button>
       <h1>
         {rustLoadTime} + {rustTime} ms ({rustResult})
       </h1>
-      <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={runRust} >
-        Run Rust code
+      <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={() => runRust(0)} >
+        Run Rust code (fibonacci)
       </button>
-      <h1 style={{ color: 'green' }}>
-        {Math.round(jsTime / (rustTime + rustLoadTime) * 100) / 100} times faster
+      <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={() => runRust(1)} >
+        Run Rust code (words)
+      </button>
+      <h1 style={jsTime < rustTime ? { color: 'red' } : { color: 'green' }}>
+        {jsTime >= rustTime ? Math.round(jsTime / (rustTime + rustLoadTime) * 100) / 100 : Math.round((rustTime + rustLoadTime) / jsTime * 100) / 100} times {jsTime >= rustTime ? "faster" : "slower"}
       </h1>
       <label>
         Unesite broj:
