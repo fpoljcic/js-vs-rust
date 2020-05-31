@@ -7,7 +7,7 @@ var wordsRust = [];
 var words = [];
 function readTextFile(file) {
   var rawFile = new XMLHttpRequest();
-  rawFile.open("GET", file, false);
+  rawFile.open("GET", file, true);
   rawFile.onreadystatechange = function () {
     if (rawFile.readyState === 4) {
       if (rawFile.status === 200 || rawFile.status === 0) {
@@ -18,9 +18,9 @@ function readTextFile(file) {
       }
     }
   }
-  rawFile.send(null);
+  rawFile.send();
 }
-readTextFile("/words");
+readTextFile("https://rust-test-new.herokuapp.com/words");
 
 // For u64 support add (global BigInt)
 // const [rustResult, setRustResult] = useState("");
