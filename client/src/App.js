@@ -20,7 +20,7 @@ function readTextFile(file) {
   }
   rawFile.send();
 }
-readTextFile("https://rust-test-new.herokuapp.com/words");
+readTextFile("https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt");
 
 // For u64 support add (global BigInt)
 // const [rustResult, setRustResult] = useState("");
