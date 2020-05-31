@@ -35,8 +35,8 @@ function App() {
   const [pressed, setPressed] = useState(false);
   const [wasm, setWasm] = useState(null);
   const [inputValue, setInputValue] = useState(0);
-  const [validWordJS, setValidWordJS] = useState(false);
-  const [validWordRust, setValidWordRust] = useState(false);
+  const [validWordJS, setValidWordJS] = useState(370104);
+  const [validWordRust, setValidWordRust] = useState(370104);
 
   useEffect(() => {
     let start = performance.now();
