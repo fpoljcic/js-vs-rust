@@ -16,3 +16,6 @@ heroku buildpacks:add https://github.com/mars/create-react-app-buildpack.git
 git push heroku master
 Ako imamo folder backend u root-u i samo njega zelimo
 git subtree push --prefix backend heroku master
+
+Historija komandi
+C:\Users\Poljcic\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline

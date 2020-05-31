@@ -7,10 +7,10 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
+    "react-app-rewired": "^2.1.5",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "rust-helper": "file:./rust/pkg",
-    "react-app-rewired": "^2.1.5",
+    "rust-helper": "file:rust/pkg",
     "wasm-loader": "^1.3.0"
   },
   "scripts": {

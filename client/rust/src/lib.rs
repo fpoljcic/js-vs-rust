@@ -45,3 +45,10 @@ pub fn words_test(words: &JsValue) -> Array {
 
     elements.into_iter().map(JsValue::from).collect()
 }
+
+#[wasm_bindgen]
+pub fn valid_word(words: &JsValue, word: String) -> usize {
+    let mut elements: Vec<String> = words.into_serde().unwrap();
+    elements.retain(|a| a.contains(&word));
+    elements.len()
+}

@@ -4,6 +4,7 @@ import './App.css';
 // Ucitavanje svih rijeci engleskog jezika
 var wordsJS = [];
 var wordsRust = [];
+var words = [];
 function readTextFile(file) {
   var rawFile = new XMLHttpRequest();
   rawFile.open("GET", file, false);
@@ -11,7 +12,8 @@ function readTextFile(file) {
     if (rawFile.readyState === 4) {
       if (rawFile.status === 200 || rawFile.status === 0) {
         wordsJS = rawFile.responseText.split("\r\n");
-        wordsRust = wordsJS
+        wordsRust = wordsJS;
+        words = wordsJS;
         console.log("Finished reading data.");
       }
     }
@@ -33,6 +35,8 @@ function App() {
   const [pressed, setPressed] = useState(false);
   const [wasm, setWasm] = useState(null);
   const [inputValue, setInputValue] = useState(0);
+  const [validWordJS, setValidWordJS] = useState(false);
+  const [validWordRust, setValidWordRust] = useState(false);
 
   useEffect(() => {
     let start = performance.now();
@@ -132,40 +136,64 @@ function App() {
     setWasm(wasm);
   };
 
-  function handleChange(event) {
+  const handleChange = (event) => {
     setInputValue(event.target.value);
+  }
+
+  const searchWordsJS = (event) => {
+    setValidWordJS(words.filter(word => word.includes(event.target.value)).length);
+  }
+
+  const searchWordsRust = (event) => {
+    setValidWordRust(wasm.valid_word(words, event.target.value));
   }
 
   return (
     <div className="App" >
-      <h1 style={{ marginTop: '40px' }}>
-        {jsTime} ms ({jsResult})
+      <div className="column-1">
+        <h1 style={{ marginTop: '40px' }}>
+          {jsTime} ms ({jsResult})
       </h1>
-      <button onClick={() => runJS(0)} >
-        Run JS code (fibonacci)
+        <button onClick={() => runJS(0)} >
+          Run JS code (fibonacci)
       </button>
-      <button onClick={() => runJS(1)} >
-        Run JS code (words)
+        <button onClick={() => runJS(1)} >
+          Run JS code (words)
       </button>
-      <h1>
-        {rustLoadTime} + {rustTime} ms ({rustResult})
+        <h1>
+          {rustLoadTime} + {rustTime} ms ({rustResult})
       </h1>
-      <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={() => runRust(0)} >
-        Run Rust code (fibonacci)
+        <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={() => runRust(0)} >
+          Run Rust code (fibonacci)
       </button>
-      <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={() => runRust(1)} >
-        Run Rust code (words)
+        <button style={pressed ? { backgroundColor: '#3e8e41', boxShadow: '0 5px #666', transform: 'translateY(4px)' } : null} onClick={() => runRust(1)} >
+          Run Rust code (words)
       </button>
-      <h1 style={jsTime < rustTime ? { color: 'red' } : { color: 'green' }}>
-        {jsTime >= rustTime ? Math.round(jsTime / (rustTime + rustLoadTime) * 100) / 100 : Math.round((rustTime + rustLoadTime) / jsTime * 100) / 100} times {jsTime >= rustTime ? "faster" : "slower"}
-      </h1>
-      <label>
-        Unesite broj:
-      </label>
-      <input maxLength="3" placeholder="F(n)" type="text" onChange={handleChange} />
-      <button style={{ marginLeft: '40px', marginBottom: '100px' }} onClick={runBenchmark} >
-        Run benchmark (console)
+        <h1 style={jsTime < rustTime ? { color: 'red' } : { color: 'green' }}>
+          {jsTime >= rustTime ? Math.round(jsTime / (rustTime + rustLoadTime) * 100) / 100 : Math.round((rustTime + rustLoadTime) / jsTime * 100) / 100} times {jsTime >= rustTime ? "faster" : "slower"}
+        </h1>
+        <label>
+          {"Unesite broj (<= 45):"}
+        </label>
+        <input maxLength="3" placeholder="F(n)" type="text" onChange={handleChange} />
+        <button style={{ marginLeft: '40px', marginBottom: '100px' }} onClick={runBenchmark} >
+          Run benchmark (open console)
       </button>
+      </div>
+      <div className="column-2">
+        <h1>
+          Broj sličnih riječi?
+        </h1>
+        <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+          <input placeholder="Unesite rijec (JS)" type="text" onChange={searchWordsJS} />
+          {" " + validWordJS}
+        </div>
+        <br />
+        <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+          <input placeholder="Unesite rijec (Rust)" type="text" onChange={searchWordsRust} />
+          {" " + validWordRust}
+        </div>
+      </div>
     </div>
   );
 }

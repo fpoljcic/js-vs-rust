@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: grid;
 }
 
 button {
@@ -35,7 +36,7 @@ h1 {
 }
 
 input {
-  width: 4em;
+  width: max-content;
   text-align: center;
   padding: 12px 10px;
   border: 1px solid #ccc;
@@ -46,4 +47,19 @@ input {
 label {
   font-size: 20px;
   padding-right: 1%;
+}
+
+.column-1 {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.column-2 {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
+select {
+  height: 50vh;
+  width: 50%;
 }
