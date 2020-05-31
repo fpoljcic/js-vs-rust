@@ -20,7 +20,7 @@ function readTextFile(file) {
   }
   rawFile.send(null);
 }
-readTextFile("./words_alpha.txt");
+readTextFile(document.URL + "/words_alpha.txt");
 
 // For u64 support add (global BigInt)
 // const [rustResult, setRustResult] = useState("");
