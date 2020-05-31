@@ -9,8 +9,12 @@ express.static.mime.define({'application/wasm': ['wasm']});
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
+
+app.get('/words', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/words_alpha.txt'));
 });
 
 const PORT = process.env.PORT || 5000;
