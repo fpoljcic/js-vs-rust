@@ -52,3 +52,9 @@ pub fn valid_word(words: &JsValue, word: String) -> usize {
     elements.retain(|a| a.contains(&word));
     elements.len()
 }
+
+#[wasm_bindgen]
+pub fn concat_strings(words: &JsValue) -> String {
+    let elements: Vec<String> = words.into_serde().unwrap();
+    elements.join("")
+}

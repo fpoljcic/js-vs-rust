@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { saveAs } from 'file-saver';
 import './App.css';
+import DownloadExcel from './DownloadExcel';
+import data from './SampleData';
 
 // Ucitavanje svih rijeci engleskog jezika
 var wordsJS = [];
@@ -22,6 +25,8 @@ function readTextFile(file) {
 }
 readTextFile("https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt");
 
+let excelData = data;
+
 // For u64 support add (global BigInt)
 // const [rustResult, setRustResult] = useState("");
 // let sum = BigInt(wasm.fibonacci(inputValue)).toString();
@@ -34,6 +39,7 @@ function App() {
   const [rustResult, setRustResult] = useState("");
   const [pressed, setPressed] = useState(false);
   const [wasm, setWasm] = useState(null);
+  const [excel, setExcel] = useState(null);
   const [inputValue, setInputValue] = useState(0);
   const [validWordJS, setValidWordJS] = useState(370104);
   const [validWordRust, setValidWordRust] = useState(370104);
@@ -133,6 +139,8 @@ function App() {
 
   const loadWasm = async () => {
     const wasm = await import('rust-helper-new');
+    const excel = await import('simple_excel_writer_wasm');
+    setExcel(excel);
     setWasm(wasm);
   };
 
@@ -146,6 +154,65 @@ function App() {
 
   const searchWordsRust = (event) => {
     setValidWordRust(wasm.valid_word(words, event.target.value));
+  }
+
+  const concatStringsJS = () => {
+    let start = performance.now();
+    console.log(words.join(''));
+    let end = performance.now();
+    let time = end - start;
+    setJsTime(time);
+  }
+
+  const concatStringsRust = () => {
+    let start = performance.now();
+    console.log(wasm.concat_strings(words));
+    let end = performance.now();
+    let time = end - start;
+    setRustTime(time);
+  }
+
+  const exportExcel = () => {
+    /*
+    let reservations = [[
+      "2.6.2020",
+      "Vistafon",
+      "Sala 1",
+      "3.6.2020",
+      "Football",
+      "20 KM",
+      "75 min",
+      "Zeljko Juric",
+      "employee@etf.unsa.ba"
+    ],
+    [
+      "3.6.2020",
+      "Bembasa",
+      "Glavna sala",
+      "5.6.2020",
+      "Basketball",
+      "70 KM",
+      "75 min",
+      "Zeljko Juric",
+      "employee@etf.unsa.ba"
+    ]];
+    let header = [
+      "Datum kreiranja",
+      "Sportski centar",
+      "Sportska sala",
+      "Datum rezervacije",
+      "Sport",
+      "Cijena",
+      "Trajanje",
+      "Ime zaposlenika",
+      "Email zaposlenika"];
+    let data = excel.generateExcel("Reservations", header, reservations);
+    var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(blob, "Log.xlsx");
+    */
+    let data = excel.excelTest(excelData);
+    var blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(blob, "reservations.xlsx");
   }
 
   return (
@@ -193,6 +260,18 @@ function App() {
           <input placeholder="Unesite rijec (Rust)" type="text" onChange={searchWordsRust} />
           {" " + validWordRust}
         </div>
+        <button style={{ marginTop: '20px' }} onClick={() => concatStringsJS()} >
+          Concat all strings (JS)
+      </button>
+        <br />
+        <button style={{ marginTop: '20px' }} onClick={() => concatStringsRust()} >
+          Concat all strings (Rust)
+      </button>
+        <br />
+        <button style={{ marginTop: '20px' }} onClick={() => exportExcel()} >
+          Export excel (rust)
+      </button>
+        <DownloadExcel data={excelData} filename="reservations" />
       </div>
     </div>
   );
