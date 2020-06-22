@@ -1,5 +1,5 @@
 {
-  "name": "rust-test-new",
+  "name": "js-vs-rust",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,18 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fpoljcic/rust-test-new.git"
+    "url": "git+https://github.com/fpoljcic/js-vs-rust.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fpoljcic/rust-test-new/issues"
+    "url": "https://github.com/fpoljcic/js-vs-rust/issues"
   },
-  "homepage": "https://github.com/fpoljcic/rust-test-new#readme",
+  "homepage": "https://github.com/fpoljcic/js-vs-rust#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "simple_excel_writer_wasm": "file:client/simple_excel_writer_wasm/pkg"
+    "express": "^4.17.1"
   },
   "engines": {
     "node": ">=10.5.0"
