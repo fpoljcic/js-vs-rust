@@ -1,6 +1,4 @@
 #![crate_name = "simple_excel_writer_wasm"]
-//#![crate_type = "rlib"]
-//#![crate_type = "dylib"]
 
 extern crate zip;
 

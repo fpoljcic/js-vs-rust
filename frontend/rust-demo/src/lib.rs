@@ -1,27 +1,8 @@
-mod utils;
-
-//extern crate serde_json;
 extern crate js_sys;
 extern crate wasm_bindgen;
 
 use js_sys::Array;
 use wasm_bindgen::prelude::*;
-
-// When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
-// allocator.
-#[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
-#[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, rust-helper!");
-}
 
 #[wasm_bindgen]
 pub fn fibonacci(param: u16) -> u32 {

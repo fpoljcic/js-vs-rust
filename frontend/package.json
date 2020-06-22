@@ -14,8 +14,8 @@
     "react-data-export": "^0.6.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "rust-demo": "file:./rust-demo/pkg",
-    "simple-excel-writer-wasm": "file:./simple-excel-writer-wasm/pkg",
+    "rust-demo": "0.1.0",
+    "simple-excel-writer-wasm": "0.1.0",
     "wasm-loader": "^1.3.0",
     "xlsx": "^0.16.2"
   },

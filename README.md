@@ -1,3 +1,8 @@
+JS vs Rust
+============
+
+This repository is used for development of a web app used for research purposes. It demonstrates the difference in performace between JavaScript and Rust compiled into WebAssembly.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
