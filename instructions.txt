@@ -5,7 +5,8 @@ Npm
 npm config set registry https://registry.npmjs.org/
 npm version 0.2.0
 npm publish
-npm unpublish rust-web-helper --force
+npm unpublish rust-demo --force
+"simple-excel-writer-wasm": "file:./simple-excel-writer-wasm/pkg"
 
 Heroku
 Instalirati Heroku CLI -> https://devcenter.heroku.com/articles/heroku-cli#download-and-install
