@@ -1,5 +1,3 @@
-#![crate_name = "simple_excel_writer_wasm"]
-
 extern crate zip;
 
 pub use sheet::*;
