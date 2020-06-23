@@ -71,7 +71,7 @@ function App() {
     "function fibonacci(num) {\n    if (num <= 1) return 1;\n    return fibonacci(num - 1) + fibonacci(num - 2);\n}",
     "for (let i = 1; i <= enteredValue; i++) {\n      let start = performance.now();\n      resultArray.push(fibonacci(i)); // JS fibonacci call \n      let end = performance.now();\n      timeArray.push(end - start);\n}",
     "function wordsFilter(words) {\n    words.sort((a, b) => b.localeCompare(a));\n    return words.filter((word) => !word.includes(\"a\") && !word.includes(\"e\") && !word.includes(\"i\") && !word.includes(\"o\") && !word.includes(\"u\") && word.length > 6);\n}",
-    "    const ExcelFile = ReactExport.ExcelFile;\n    const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;\n    const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;\n    const DownloadExcel = (props) => {\n        return (\n            <ExcelFile filename={props.filename}>\n                <ExcelSheet data={props.data} name=\"Report\">\n                    <ExcelColumn label=\"id\" value=\"id\" />\n                    <ExcelColumn label=\"guid\" value=\"guid\" />\n                    <ExcelColumn label=\"balance\" value=\"balance\" />\n                    <ExcelColumn label=\"eyeColor\" value=\"eyeColor\" />\n                    <ExcelColumn label=\"name\" value=\"name\" />\n                    <ExcelColumn label=\"gender\" value=\"gender\" />\n                    <ExcelColumn label=\"company\" value=\"compay\" />\n                    <ExcelColumn label=\"email\" value=\"email\" />\n                    <ExcelColumn label=\"phone\" value=\"phone\" />\n                    <ExcelColumn label=\"address\" value=\"address\" />\n                    <ExcelColumn label=\"about\" value=\"about\" />\n                </ExcelSheet>\n            </ExcelFile>\n        );\n    }\n    export default DownloadExcel;",
+    "const ExcelFile = ReactExport.ExcelFile;\nconst ExcelSheet = ReactExport.ExcelFile.ExcelSheet;\nconst ExcelColumn = ReactExport.ExcelFile.ExcelColumn;\nconst DownloadExcel = (props) => {\n    return (\n        <ExcelFile filename={props.filename}>\n            <ExcelSheet data={props.data} name=\"Report\">\n                <ExcelColumn label=\"id\" value=\"id\" />\n                <ExcelColumn label=\"guid\" value=\"guid\" />\n                <ExcelColumn label=\"balance\" value=\"balance\" />\n                <ExcelColumn label=\"eyeColor\" value=\"eyeColor\" />\n                <ExcelColumn label=\"name\" value=\"name\" />\n                <ExcelColumn label=\"gender\" value=\"gender\" />\n                <ExcelColumn label=\"company\" value=\"compay\" />\n                <ExcelColumn label=\"email\" value=\"email\" />\n                <ExcelColumn label=\"phone\" value=\"phone\" />\n                <ExcelColumn label=\"address\" value=\"address\" />\n                <ExcelColumn label=\"about\" value=\"about\" />\n            </ExcelSheet>\n        </ExcelFile>\n    );\n}\nexport default DownloadExcel;",
   ];
 
   const rustCode = [
@@ -430,10 +430,10 @@ function App() {
             <Row style={{ marginBottom: '60px' }} align="middle" >
               <Col span={1}>
               </Col>
-              <Col span={11}>
+              <Col style={{ display: 'flex', justifyContent: 'space-between' }} span={11}>
                 <Space style={{ float: 'left' }}>
                   {page === 2 || page === 3 ?
-                    <Input size="large" style={{ textAlign: 'center', width: 200 }} placeholder="Enter number (<= 45)" maxLength={2} onChange={(e) => setInputValue(e.target.value)} />
+                    <Input autoFocus size="large" style={{ textAlign: 'center', width: 190 }} placeholder="Enter number (<= 45)" maxLength={2} onChange={(e) => setInputValue(e.target.value)} />
                     : null}
                   <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runJS(page)}>
                     Run JS code
@@ -442,8 +442,8 @@ function App() {
                     Run Rust code
                   </Button>
                 </Space>
-                <Space style={{ float: 'right' }}>
-                  <Button style={{ marginLeft: '40px', width: 150 }} size="large" type="primary" onClick={() => runBoth(page)}>
+                <Space>
+                  <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runBoth(page)}>
                     Run both
             </Button>
                 </Space>
