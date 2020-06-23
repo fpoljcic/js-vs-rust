@@ -61,7 +61,7 @@ function App() {
     "Checks how many prime numbers are there till a 1 000 000",
     "Calculates the n-th fibonacci number using recursion",
     "Calculates the first n fibonacci numbers using recursion",
-    "Sorts a list of all English words backwards and then filters words that don't include vowels",
+    "Sorts a list of all English words backwards and then filters words longer than 6 that don't include vowels",
     "Exports an excel file with 7500 rows",
   ];
 
@@ -370,14 +370,14 @@ function App() {
                 </Tooltip> : null}
             </Col>
           </Row>
-          <Row>
+          <Row style={{ marginBottom: '60px' }}>
             <Col span={24}>
               <Space style={{ paddingLeft: 122 }}>
                 <DownloadExcel data={checked ? sampleIdenticalData : sampleData} filename="excelJS" />
                 <Button style={{ width: 250 }} size="large" type="primary" onClick={() => exportExcel()}>
                   Export excel file (Rust)
                 </Button>
-                <Checkbox onChange={(e) => setChecked(e.target.checked)}>Identical data</Checkbox>
+                <Checkbox onChange={(e) => setChecked(e.target.checked)}>Identical rows</Checkbox>
               </Space>
             </Col>
           </Row>
