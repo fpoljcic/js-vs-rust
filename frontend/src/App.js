@@ -319,72 +319,20 @@ function App() {
 
   return (
     <div className="app">
-      <Row align="middle" >
-        <Col span={24}>
-          <div className="test-title">
-            {testTitles[page]}
-          </div>
-          <div className="test-desc">
-            {testDesc[page]}
-          </div>
-        </Col>
-      </Row>
-      {page === testTitles.length - 1 ? (
-        <>
-          <Row align="middle">
-            <Col span={1}>
-              {page !== 0 ?
-                <Tooltip title="Previous test">
-                  <LeftOutlined className="full-screen-arrow-button-left" onClick={() => {
-                    setJsTime(0);
-                    setRustTime(0);
-                    setJsResult("");
-                    setRustResult("");
-                    setPage(page - 1);
-                  }} />
-                </Tooltip>
-                : null}
-            </Col>
-            <Col span={11} className="test-column">
-              JavaScript library ({<a target="_blank" rel="noopener noreferrer" href="https://github.com/securedeveloper/react-data-export">react-data-export</a>})
-              <div className="code-container">
-                {JSCode[page]}
-              </div>
-            </Col>
-            <Col span={11} className="test-column">
-              Rust library ({<a target="_blank" rel="noopener noreferrer" href="https://github.com/outersky/simple_excel_writer">simple_excel_writer</a>})
-              <div className="code-container">
-                {rustCode[page]}
-              </div>
-            </Col>
-            <Col span={1}>
-              {page !== testTitles.length - 1 ?
-                <Tooltip title="Next test">
-                  <RightOutlined className="full-screen-arrow-button-right" onClick={() => {
-                    setJsTime(0);
-                    setRustTime(0);
-                    setJsResult("");
-                    setRustResult("");
-                    setPage(page + 1);
-                  }} />
-                </Tooltip> : null}
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '60px' }}>
-            <Col span={24}>
-              <Space style={{ paddingLeft: 122 }}>
-                <DownloadExcel data={checked ? sampleIdenticalData : sampleData} filename="excelJS" />
-                <Button style={{ width: 250 }} size="large" type="primary" onClick={() => exportExcel()}>
-                  Export excel file (Rust)
-                </Button>
-                <Checkbox onChange={(e) => setChecked(e.target.checked)}>Identical rows</Checkbox>
-              </Space>
-            </Col>
-          </Row>
-        </>
-      ) : (
+      <div className="content">
+        <Row align="middle" >
+          <Col span={24}>
+            <div className="test-title">
+              {testTitles[page]}
+            </div>
+            <div className="test-desc">
+              {testDesc[page]}
+            </div>
+          </Col>
+        </Row>
+        {page === testTitles.length - 1 ? (
           <>
-            <Row align="top" >
+            <Row align="middle">
               <Col span={1}>
                 {page !== 0 ?
                   <Tooltip title="Previous test">
@@ -399,20 +347,16 @@ function App() {
                   : null}
               </Col>
               <Col span={11} className="test-column">
-                JavaScript code
-          <br />
-                <div className="code-container">
+                JavaScript library ({<a target="_blank" rel="noopener noreferrer" href="https://github.com/securedeveloper/react-data-export">react-data-export</a>})
+              <div className="code-container">
                   {JSCode[page]}
                 </div>
-                <br />
-          Rust code
-          <br />
-                <div className="code-container">
+              </Col>
+              <Col span={11} className="test-column">
+                Rust library ({<a target="_blank" rel="noopener noreferrer" href="https://github.com/outersky/simple_excel_writer">simple_excel_writer</a>})
+              <div className="code-container">
                   {rustCode[page]}
                 </div>
-              </Col>
-              <Col span={11}>
-                {renderChart(page)}
               </Col>
               <Col span={1}>
                 {page !== testTitles.length - 1 ?
@@ -427,39 +371,97 @@ function App() {
                   </Tooltip> : null}
               </Col>
             </Row>
-            <Row style={{ marginBottom: '60px' }} align="middle" >
-              <Col span={1}>
-              </Col>
-              <Col style={{ display: 'flex', justifyContent: 'space-between' }} span={11}>
-                <Space style={{ float: 'left' }}>
-                  {page === 2 || page === 3 ?
-                    <Input autoFocus size="large" style={{ textAlign: 'center', width: 190 }} placeholder="Enter number (<= 45)" maxLength={2} onChange={(e) => setInputValue(e.target.value)} />
-                    : null}
-                  <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runJS(page)}>
-                    Run JS code
-                  </Button>
-                  <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runRust(page)}>
-                    Run Rust code
-                  </Button>
+            <Row>
+              <Col span={24}>
+                <Space style={{ paddingLeft: 122 }}>
+                  <DownloadExcel data={checked ? sampleIdenticalData : sampleData} filename="excelJS" />
+                  <Button style={{ width: 250 }} size="large" type="primary" onClick={() => exportExcel()}>
+                    Export excel file (Rust)
+                </Button>
+                  <Checkbox onChange={(e) => setChecked(e.target.checked)}>Identical rows</Checkbox>
                 </Space>
-                <Space>
-                  <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runBoth(page)}>
-                    Run both
-            </Button>
-                </Space>
-              </Col>
-              <Col span={11}>
-                <span style={{ marginLeft: 76 }}>
-                  <Input size="large" style={{ width: '40%', textAlign: 'center', margin: '10px' }} placeholder="JS result" value={jsResult} />
-                  <Input size="large" style={{ width: '40%', textAlign: 'center', margin: '10px' }} placeholder="Rust result" value={rustResult} />
-                </span>
-              </Col>
-              <Col span={1}>
               </Col>
             </Row>
           </>
-        )
-      }
+        ) : (
+            <>
+              <Row align="top" >
+                <Col span={1}>
+                  {page !== 0 ?
+                    <Tooltip title="Previous test">
+                      <LeftOutlined className="full-screen-arrow-button-left" onClick={() => {
+                        setJsTime(0);
+                        setRustTime(0);
+                        setJsResult("");
+                        setRustResult("");
+                        setPage(page - 1);
+                      }} />
+                    </Tooltip>
+                    : null}
+                </Col>
+                <Col span={11} className="test-column">
+                  JavaScript code
+          <br />
+                  <div className="code-container">
+                    {JSCode[page]}
+                  </div>
+                  <br />
+          Rust code
+          <br />
+                  <div className="code-container">
+                    {rustCode[page]}
+                  </div>
+                </Col>
+                <Col span={11}>
+                  {renderChart(page)}
+                </Col>
+                <Col span={1}>
+                  {page !== testTitles.length - 1 ?
+                    <Tooltip title="Next test">
+                      <RightOutlined className="full-screen-arrow-button-right" onClick={() => {
+                        setJsTime(0);
+                        setRustTime(0);
+                        setJsResult("");
+                        setRustResult("");
+                        setPage(page + 1);
+                      }} />
+                    </Tooltip> : null}
+                </Col>
+              </Row>
+              <Row align="middle" >
+                <Col span={1}>
+                </Col>
+                <Col style={{ display: 'flex', justifyContent: 'space-between' }} span={11}>
+                  <Space style={{ float: 'left' }}>
+                    {page === 2 || page === 3 ?
+                      <Input autoFocus size="large" style={{ textAlign: 'center', width: 190 }} placeholder="Enter number (<= 45)" maxLength={2} onChange={(e) => setInputValue(e.target.value)} />
+                      : null}
+                    <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runJS(page)}>
+                      Run JS code
+                  </Button>
+                    <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runRust(page)}>
+                      Run Rust code
+                  </Button>
+                  </Space>
+                  <Space>
+                    <Button style={{ width: 150 }} size="large" type="primary" onClick={() => runBoth(page)}>
+                      Run both
+            </Button>
+                  </Space>
+                </Col>
+                <Col span={11}>
+                  <span style={{ marginLeft: 76 }}>
+                    <Input size="large" style={{ width: '40%', textAlign: 'center', margin: '10px' }} placeholder="JS result" value={jsResult} />
+                    <Input size="large" style={{ width: '40%', textAlign: 'center', margin: '10px' }} placeholder="Rust result" value={rustResult} />
+                  </span>
+                </Col>
+                <Col span={1}>
+                </Col>
+              </Row>
+            </>
+          )
+        }
+      </div>
       <div className="footer-div">
         <a target="_blank" rel="noopener noreferrer" href="https://github.com/fpoljcic/js-vs-rust">Github</a> |
         <a target="_blank" rel="noopener noreferrer" href="mailto:fpoljcic1@etf.unsa.ba"> Contact</a>

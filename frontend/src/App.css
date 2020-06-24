@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+.content {
+    min-height: calc(100vh - 50px);
+    padding-bottom: 20px;
+}
+
 .full-screen-arrow-button-left {
     position: fixed;
     top: 40%;
@@ -30,7 +35,7 @@
 
 .test-title {
     font-size: 40px;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .test-desc {
@@ -64,7 +69,6 @@
 }
 
 .footer-div {
-    position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
