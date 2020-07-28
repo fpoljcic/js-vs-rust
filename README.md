@@ -2,7 +2,7 @@ JS vs Rust
 ============
 <img align="right" width="100" height="100" src="https://raw.githubusercontent.com/fpoljcic/js-vs-rust/master/frontend/public/logo512.png">
 
-This repository is used for development of a web app used for research purposes. It demonstrates the difference in performace between JavaScript and Rust compiled into WebAssembly. The app can be checked at the following [link](https://js-vs-rust.herokuapp.com/)
+This repository is used for development of a web app used for research purposes. It demonstrates the difference in performance between JavaScript and Rust compiled into WebAssembly. The app can be checked at the following [link](https://js-vs-rust.herokuapp.com/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
